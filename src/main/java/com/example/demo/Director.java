@@ -1,5 +1,7 @@
 package com.example.demo;
 
+import org.hibernate.validator.constraints.NotEmpty;
+
 import javax.persistence.*;
 import java.util.Set;
 
@@ -10,7 +12,10 @@ public class Director {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
 
+    @NotEmpty
     private String name;
+
+    @NotEmpty
     private String genre;
 
     @OneToMany(mappedBy = "director", cascade = CascadeType.ALL, fetch = FetchType.EAGER)

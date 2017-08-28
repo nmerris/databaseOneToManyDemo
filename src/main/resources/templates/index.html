@@ -1,20 +1,97 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
-<head>
-    <meta charset="UTF-8"/>
-    <title>Title</title>
-</head>
+
+<head th:replace="fragments :: headerFragment"></head>
+
 <body>
 
-    <div th:each="director : ${directors}">
-        <h2 th:text="${director.name}"></h2>
-        <h5 th:inline="text">specializing in: [[${director.genre}]]</h5>
-        <ul>
-            <th:block th:each="movie : ${director.movies}">
-                <li th:inline="text"><b>[[${movie.title}]]</b> released in [[${movie.year}]]</li>
-            </th:block>
-        </ul>
+
+<div class="container">
+    <div class="col-lg-6 col-lg-offset-3">
+        <div class="panel panel-default card card-3">
+            <div class="panel-body">
+                <div class="text-center feedback">
+                    <h2>Welcome to Super Director Movie Power App</h2>
+                </div>
+
+                <form action="#" th:action="@{/adddirector}" th:object="${newDirector}" method="post">
+                    <h4>Add a director</h4>
+
+                    <!-- need this or id is zero every time and keep getting additional records when updating -->
+                    <input type="hidden" th:field="*{id}" />
+
+                    <div class="form-group">
+                        <label class="section-heading" for="name">Name</label>
+                        <input id="name" class="form-control" type="text" th:field="*{name}" autofocus/>
+                        <p class="alert alert-danger" th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></p>
+                    </div>
+                    <div class="form-group">
+                        <label class="section-heading" for="genre">Genre</label>
+                        <input id="genre" class="form-control" type="text" th:field="*{genre}"/>
+                        <p class="alert alert-danger" th:if="${#fields.hasErrors('genre')}" th:errors="*{genre}"></p>
+                    </div>
+
+                    <div class="clearfix"></div>
+                    <input class="btn btn-primary bold-input" type="submit" value="Submit"/>
+                </form>
+
+                <br/>
+                <br/>
+                <br/>
+                <br/>
+
+                <form action="#" th:action="@{/addmovie}" th:object="${newMovie}" method="post">
+                    <h4>Add a movie</h4>
+
+                    <!-- need this or id is zero every time and keep getting additional records when updating -->
+                    <input type="hidden" th:field="*{id}" />
+
+                    <div class="form-group">
+                        <label class="section-heading" for="title">Title</label>
+                        <input id="title" class="form-control" type="text" th:field="*{title}" autofocus/>
+                        <p class="alert alert-danger" th:if="${#fields.hasErrors('title')}" th:errors="*{title}"></p>
+                    </div>
+                    <div class="form-group">
+                        <label class="section-heading" for="year">Year</label>
+                        <input id="year" class="form-control" type="text" th:field="*{year}"/>
+                        <p class="alert alert-danger" th:if="${#fields.hasErrors('year')}" th:errors="*{year}"></p>
+                    </div>
+                    <div class="form-group">
+                        <label class="section-heading" for="description">Description</label>
+                        <input id="description" class="form-control" type="text" th:field="*{description}"/>
+                        <p class="alert alert-danger" th:if="${#fields.hasErrors('description')}" th:errors="*{description}"></p>
+                    </div>
+                    <div class="form-group">
+                        <label class="section-heading" for="director">Director</label>
+                        <input id="director" class="form-control" type="text" th:field="*{director}"/>
+                        <p class="alert alert-danger" th:if="${#fields.hasErrors('director')}" th:errors="*{director}"></p>
+                    </div>
+
+                    <div class="clearfix"></div>
+                    <input class="btn btn-primary bold-input" type="submit" value="Submit"/>
+                </form>
+
+
+
+
+                
+            </div>
+        </div>
     </div>
+</div>
+
+
+
+
+    <!--<div th:each="director : ${directors}">-->
+        <!--<h2 th:text="${director.name}"></h2>-->
+        <!--<h5 th:inline="text">specializing in: [[${director.genre}]]</h5>-->
+        <!--<ul>-->
+            <!--<th:block th:each="movie : ${director.movies}">-->
+                <!--<li th:inline="text"><b>[[${movie.title}]]</b> released in [[${movie.year}]]</li>-->
+            <!--</th:block>-->
+        <!--</ul>-->
+    <!--</div>-->
 
 </body>
 </html>
