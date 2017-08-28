@@ -63,13 +63,47 @@
                     </div>
                     <div class="form-group">
                         <label class="section-heading" for="director">Director</label>
-                        <input id="director" class="form-control" type="text" th:field="*{director}"/>
-                        <p class="alert alert-danger" th:if="${#fields.hasErrors('director')}" th:errors="*{director}"></p>
+                        <input id="director" class="form-control" type="text" th:field="*{directorFormInput}"/>
+                        <p class="alert alert-danger" th:if="${#fields.hasErrors('directorFormInput')}" th:errors="*{directorFormInput}"></p>
                     </div>
 
                     <div class="clearfix"></div>
                     <input class="btn btn-primary bold-input" type="submit" value="Submit"/>
                 </form>
+
+                <br/>
+                <br/>
+                <br/>
+
+                <!-- list of directors -->
+                <div class="table-responsive">
+                    <table class="table table-striped">
+                        <caption><h3><b>List of Directors</b></h3></caption>
+                        <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Famous for Genre</th>
+                            <th>Movies</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                            <th:block th:each="item:${directors}">
+                                <tr>
+                                    <td><p th:text="${item.name}"></p></td>
+                                    <td><p th:text="${item.genre}"></p></td>
+                                    <td>
+                                        <ul>
+                                            <th:block th:each="movie : ${item.movies}">
+                                                <li th:inline="text">[[${movie.title}]]</li>
+                                            </th:block>
+                                        </ul>
+                                    </td>
+
+                                </tr>
+                            </th:block>
+                        </tbody>
+                    </table>
+                </div>
 
 
 

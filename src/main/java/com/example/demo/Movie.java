@@ -1,6 +1,9 @@
 package com.example.demo;
 
+import org.hibernate.validator.constraints.NotEmpty;
+
 import javax.persistence.*;
+import javax.validation.constraints.Min;
 
 @Entity
 public class Movie {
@@ -9,9 +12,17 @@ public class Movie {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
 
+    @NotEmpty
     private String title;
+
+    @Min(1900)
     private long year;
+
+    @NotEmpty
     private String description;
+
+    @NotEmpty
+    private String directorFormInput;
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "director_id")
@@ -48,6 +59,14 @@ public class Movie {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public String getDirectorFormInput() {
+        return directorFormInput;
+    }
+
+    public void setDirectorFormInput(String directorFormInput) {
+        this.directorFormInput = directorFormInput;
     }
 
     public Director getDirector() {

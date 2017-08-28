@@ -30,7 +30,8 @@ public class MainController {
 
         model.addAttribute("newDirector", director);
         model.addAttribute("newMovie", movie);
-
+        model.addAttribute("directors", directorRepository.findAll());
+        model.addAttribute("movies", movieRepository.findAll());
 
 
 
@@ -88,6 +89,10 @@ public class MainController {
             model.addAttribute("newDirector", director);
             // add a new Movie back to the model, because the user must have clicked on Submit for a new director to get here
             model.addAttribute("newMovie", new Movie());
+
+            // index also needs all the repo contents because many many things happen in index!
+            model.addAttribute("directors", directorRepository.findAll());
+            model.addAttribute("movies", movieRepository.findAll());
             return "index";
         }
 
@@ -99,7 +104,7 @@ public class MainController {
     }
 
 
-    @PostMapping("/admovie")
+    @PostMapping("/addmovie")
     public String addmoviePost(@Valid @ModelAttribute("newMovie") Movie movie,
                                   BindingResult bindingResult, Model model) {
         System.out.println("*************************** addmovie POST");
@@ -110,11 +115,14 @@ public class MainController {
             model.addAttribute("newMovie", movie);
             // add a new Movie back to the model, because the user must have clicked on Submit for a new director to get here
             model.addAttribute("newDirector", new Director());
+
+            model.addAttribute("directors", directorRepository.findAll());
+            model.addAttribute("movies", movieRepository.findAll());
             return "index";
         }
 
         // save the new movie to the db, because there were no validation errors
-        directorRepository.save(movie);
+        movieRepository.save(movie);
 
 
         return "addmovieconfirmation";
