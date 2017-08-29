@@ -90,11 +90,13 @@
                 <br/>
                 <br/>
 
+
+
                 <form action="#" th:action="@{/addmovie}" th:object="${newMovie}" method="post">
                     <h4>Add a movie</h4>
 
                     <!-- need this or id is zero every time and keep getting additional records when updating -->
-                    <input type="hidden" th:field="*{id}" />
+                    <!--<input type="hidden" th:field="*{id}" />-->
 
                     <div class="form-group">
                         <label class="section-heading" for="title">Title</label>
@@ -111,13 +113,26 @@
                         <input id="description" class="form-control" type="text" th:field="*{description}"/>
                         <p class="alert alert-danger" th:if="${#fields.hasErrors('description')}" th:errors="*{description}"></p>
                     </div>
+
+                    <!-- show a dropdown list of all the directors, this way it is only possible for the user to select a valid director -->
+                    <!-- so slick! we get the ID of the director from the users drop down selection, and that plop that
+                         right into the movie's director.id field... this means we don't even have to do ANYTHING in the
+                         controller, it's all taken car of right here! also you can validate the movie entry on NotNull,
+                         which will prevent the user from adding a movie before there are any directors in the db.. sweet
+                         as long as at least one director has already been added, it is impossible to add a new movie,
+                         because the list preselects the first director, prob. can change this -->
                     <div class="form-group">
-                        <label class="section-heading" for="director">Director</label>
-                        <input id="director" class="form-control" type="text" th:field="*{directorFormInput}"/>
-                        <p class="alert alert-danger" th:if="${#fields.hasErrors('directorFormInput')}" th:errors="*{directorFormInput}"></p>
+                        <label class="section-heading" for="directorDD">Director</label>
+                        <select class="form-control" id="directorDD" th:field="*{director.id}">
+                            <th:block th:each="item:${directors}">
+                                <tr>
+                                    <option th:value="${item.id}" th:text="${item.name}"></option>
+                                </tr>
+                            </th:block>
+                        </select>
+                        <p class="alert alert-danger" th:if="${#fields.hasErrors('director')}" th:errors="*{director}"></p>
                     </div>
 
-                    <div class="clearfix"></div>
                     <input class="btn btn-primary bold-input" type="submit" value="Submit"/>
                 </form>
 

@@ -7,7 +7,7 @@ public interface MovieRepository extends CrudRepository<Movie, Long> {
 
 
 
-    Iterable<Movie> findAllByDirectorFormInputIs(String directorName);
+//    Iterable<Movie> findAllByDirectorFormInputIs(String directorName);
 
 
     Movie findMovieByIdIs(long id);

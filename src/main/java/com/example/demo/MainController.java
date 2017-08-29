@@ -31,37 +31,6 @@ public class MainController {
         model.addAttribute("directors", directorRepository.findAll());
         model.addAttribute("movies", movieRepository.findAll());
 
-
-        //        Set<Movie> movies = new HashSet<Movie>();
-//
-//        director.setName("Rob Reiner");
-//        director.setGenre("Fantasy");
-//
-//        // create a movie
-//        Movie movieRR = new Movie();
-//        movieRR.setTitle("Princess Bride");
-//        movieRR.setYear(1986);
-//        movieRR.setDescription("a comedic tale of love and adventure");
-//        movies.add(movieRR);
-//
-//        // create another movie
-//        movieRR = new Movie();
-//        movieRR.setTitle("Spinal Tap");
-//        movieRR.setYear(1992);
-//        movieRR.setDescription("a funny movie about a band");
-//        movies.add(movieRR);
-//
-//        // add movies to director
-//        director.setMovies(movies);
-//
-//        // save director to repo
-//        directorRepository.save(director);
-//
-//
-//
-//        // add all directors to the model
-//        model.addAttribute("directors", directorRepository.findAll());
-
         return "index";
 
     }
@@ -106,25 +75,6 @@ public class MainController {
         }
 
 
-
-
-
-        // need to update all the Movies in movie repo so that they match to the currently added director, because it is
-        // possible that some movies were added BEFORE their director was added, and this way the relationships in the
-        // movie repo will always be up to date... seems like their should be an automagic way to do this....
-        // !!! NOTE: above is wrong, this is not something that should be expected in this setup.. a MOVIE that is added
-        // BEFORE it's director has been added will become an ORPHAN, and so it will not ever have a value in it's JOIN column,
-        // this is because a movie depends on a director, not the other way around
-        Iterable<Movie> matchingMovies = movieRepository.findAllByDirectorFormInputIs(director.getName());
-        for (Movie m : matchingMovies) {
-
-            m.setDirector(director);
-
-            // this totally works!
-            movieRepository.save(m);
-        }
-
-
         return "adddirectorconfirmation";
     }
 
@@ -148,10 +98,10 @@ public class MainController {
 
         // returns null if director is not already in the db, which is ok... maybe? it doesn't crash at least
         // if a movie is persisted with a NULL director, we say it is 'orphaned'
-        Director d = directorRepository.findDirectorByNameIs(movie.getDirectorFormInput());
+//        Director d = directorRepository.findDirectorByIdIs(movie.getDirector().getId());
 
         // save it now, with or without a director
-        movie.setDirector(d);
+//        movie.setDirector(d);
 
         // save the new movie to the db, because there were no validation errors, and the director was known
         movieRepository.save(movie);

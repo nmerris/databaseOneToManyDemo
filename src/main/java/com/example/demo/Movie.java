@@ -4,6 +4,7 @@ import org.hibernate.validator.constraints.NotEmpty;
 
 import javax.persistence.*;
 import javax.validation.constraints.Min;
+import javax.validation.constraints.NotNull;
 
 @Entity
 public class Movie {
@@ -21,8 +22,8 @@ public class Movie {
     @NotEmpty
     private String description;
 
-    @NotEmpty
-    private String directorFormInput;
+//    @NotEmpty
+//    private String directorFormInput;
 
     // many movies may have one director
 
@@ -30,6 +31,7 @@ public class Movie {
     // director_id is just the name we are choosing to call the JOIN column, you can name it anything you want, but
     // [entity-name]_id is convention
     @JoinColumn(name = "director_id")
+    @NotNull
     private Director director;
 
     public long getId() {
@@ -64,13 +66,13 @@ public class Movie {
         this.description = description;
     }
 
-    public String getDirectorFormInput() {
-        return directorFormInput;
-    }
-
-    public void setDirectorFormInput(String directorFormInput) {
-        this.directorFormInput = directorFormInput;
-    }
+//    public String getDirectorFormInput() {
+//        return directorFormInput;
+//    }
+//
+//    public void setDirectorFormInput(String directorFormInput) {
+//        this.directorFormInput = directorFormInput;
+//    }
 
     public Director getDirector() {
         return director;
