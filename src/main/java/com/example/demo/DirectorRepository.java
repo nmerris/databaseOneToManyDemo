@@ -12,6 +12,6 @@ public interface DirectorRepository extends CrudRepository<Director, Long> {
 
     Director findDirectorByIdIs(long id);
 
-//    Iterable<Movie> findAllByMovies();
+//    Iterable<Director> findDirectorsByNameLike(String name);
 
 }

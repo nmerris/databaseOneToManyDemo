@@ -95,9 +95,6 @@
                 <form action="#" th:action="@{/addmovie}" th:object="${newMovie}" method="post">
                     <h4>Add a movie</h4>
 
-                    <!-- need this or id is zero every time and keep getting additional records when updating -->
-                    <!--<input type="hidden" th:field="*{id}" />-->
-
                     <div class="form-group">
                         <label class="section-heading" for="title">Title</label>
                         <input id="title" class="form-control" type="text" th:field="*{title}"/>
