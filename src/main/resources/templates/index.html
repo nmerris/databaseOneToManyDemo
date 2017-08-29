@@ -83,7 +83,7 @@
                         <thead>
                         <tr>
                             <th>Name</th>
-                            <th>Famous for Genre</th>
+                            <!--<th>Famous for Genre</th>-->
                             <th>Movies</th>
                         </tr>
                         </thead>
@@ -91,7 +91,7 @@
                             <th:block th:each="item:${directors}">
                                 <tr>
                                     <td><p th:text="${item.name}"></p></td>
-                                    <td><p th:text="${item.genre}"></p></td>
+                                    <!--<td><p th:text="${item.genre}"></p></td>-->
                                     <td>
                                         <ul>
                                             <th:block th:each="movie : ${item.movies}">
@@ -107,6 +107,34 @@
                 </div>
 
 
+                <!-- list of movies -->
+                <div class="table-responsive">
+                    <table class="table table-striped">
+                        <caption><h3><b>List of Movies</b></h3></caption>
+                        <thead>
+                        <tr>
+                            <th>Title</th>
+                            <!--<th>Year</th>-->
+                            <!--<th>Description</th>-->
+                            <th>Director</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <th:block th:each="item:${movies}">
+                            <tr>
+                                <td><p th:text="${item.title}"></p></td>
+                                <td><a th:href="@{|/viewmoviedetails/${item.id}|}" th:text="${item.title}"></a></td>
+
+                                <!--<td><p th:text="${item.year}"></p></td>-->
+                                <!--<td><p th:text="${item.description}"></p></td>-->
+
+                                <!-- [object].director will use Director.toString, which i overrode in Director to return the directors name -->
+                                <td><p th:text="${item.director}"></p></td>
+                            </tr>
+                        </th:block
+                        </tbody>
+                    </table>
+                </div>
 
 
                 

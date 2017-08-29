@@ -24,7 +24,11 @@ public class Movie {
     @NotEmpty
     private String directorFormInput;
 
+    // many movies may have one director
+
     @ManyToOne(fetch = FetchType.EAGER)
+    // director_id is just the name we are choosing to call the JOIN column, you can name it anything you want, but
+    // [entity-name]_id is convention
     @JoinColumn(name = "director_id")
     private Director director;
 
