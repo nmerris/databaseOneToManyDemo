@@ -32,7 +32,6 @@ public class Movie {
     @JoinColumn(name = "director_id")
     private Director director;
 
-
     public long getId() {
         return id;
     }

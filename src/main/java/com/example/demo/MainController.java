@@ -117,7 +117,10 @@ public class MainController {
         // this is because a movie depends on a director, not the other way around
 //        Iterable<Movie> matchingMovies = movieRepository.findAllByDirectorFormInputIs(director.getName());
 //        for (Movie m : matchingMovies) {
+//
 //            m.setDirector(director);
+//
+//            movieRepository.save(m);
 //        }
 
 
@@ -183,20 +186,14 @@ public class MainController {
 
     @GetMapping("/viewmoviedetails/{id}")
     public String viewMovieDetails(@PathVariable("id") long id, Model model) {
-
-
         model.addAttribute("movie", movieRepository.findMovieByIdIs(id));
-
         return "viewmoviedetails";
     }
 
 
     @GetMapping("/viewdirectordetails/{id}")
     public String viewDirectorDetails(@PathVariable("id") long id, Model model) {
-
-
         model.addAttribute("director", directorRepository.findDirectorByIdIs(id));
-
         return "viewdirectordetails";
     }
 
@@ -216,25 +213,35 @@ public class MainController {
                 if(d == null) {
                     // no hits in the repo, so show an appropriate msg
                     System.out.println("!!!!!!!!!!!!!!!!!!!!! nothing found in director repo");
+
+                    Director dummyDir = new Director();
+                    dummyDir.setGenre("");
+                    dummyDir.setName("NO DIRECTOR WITH THAT NAME WAS FOUND");
+                    model.addAttribute(dummyDir);
                 }
                 else {
                     model.addAttribute(d);
-                    return "viewdirectordetails";
                 }
-                break;
+                return "viewdirectordetails";
 
             case "movie" :
                 Movie m = movieRepository.findMovieByTitleIs(movieSearchString);
                 if (m == null) {
                     System.out.println("!!!!!!!!!!!!!!!!!!!!! nothing found in movie repo");
+
+                    Movie dummyMovie = new Movie();
+                    dummyMovie.setTitle("NO MOVIE WITH THAT TITLE WAS FOUND");
+                    dummyMovie.setDescription("");
+                    dummyMovie.setYear(-999999);
                 }
                 else {
                     model.addAttribute(m);
-                    return "viewmoviedetails";
                 }
+                return "viewmoviedetails";
 
         }
 
+        System.out.println("!!!!!!!!!!!!!!!!!!!!! NO SWITCH CASES WERE MATCHED, ROUTING BACK TO DEFAULT ROUTE");
 
         // needed to compile, better to have a meaninful error message page here....
         return "redirect:/";
