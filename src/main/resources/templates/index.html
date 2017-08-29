@@ -14,6 +14,45 @@
                     <h2>Welcome to Super Director Movie Power App</h2>
                 </div>
 
+
+                <!-- search by director -->
+                <!-- pass two request params in the URL, using method=get allows us to use the form input
+                     and append it directly to the URL, then we can get it in the controller in the /search route
+                     name="name" will append a query param as follows: @name=[whatever the user just entered]
+                     the hidden field is used to add query param so that controller knows which table to search from -->
+                <form action="#" th:action="@{~/search}" method="get">
+
+                    <div class="form-group">
+                        <input type="hidden" name="bydirector"/>
+                        <input class="form-control" type="text" name="name" placeholder="Search by Director"/>
+                    </div>
+                    <button class="btn btn-primary bold-input" type="submit">Search</button>
+
+                </form>
+
+                <br/>
+                <br/>
+                <br/>
+                <br/>
+
+
+                <!-- search by movie -->
+                <form action="#" th:action="@{~/search}" method="get">
+
+                    <div class="form-group">
+                        <input type="hidden" name="bymovie"/>
+                        <input class="form-control" type="text" name="movie" placeholder="Search by Movie"/>
+                    </div>
+                    <button class="btn btn-primary bold-input" type="submit">Search</button>
+
+                </form>
+
+                <br/>
+                <br/>
+                <br/>
+                <br/>
+
+
                 
                 <form action="#" th:action="@{/adddirector}" th:object="${newDirector}" method="post">
                     <h4>Add a director</h4>
@@ -23,7 +62,7 @@
 
                     <div class="form-group">
                         <label class="section-heading" for="name">Name</label>
-                        <input id="name" class="form-control" type="text" th:field="*{name}" autofocus/>
+                        <input id="name" class="form-control" type="text" th:field="*{name}"/>
                         <p class="alert alert-danger" th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></p>
                     </div>
                     <div class="form-group">
@@ -49,7 +88,7 @@
 
                     <div class="form-group">
                         <label class="section-heading" for="title">Title</label>
-                        <input id="title" class="form-control" type="text" th:field="*{title}" autofocus/>
+                        <input id="title" class="form-control" type="text" th:field="*{title}"/>
                         <p class="alert alert-danger" th:if="${#fields.hasErrors('title')}" th:errors="*{title}"></p>
                     </div>
                     <div class="form-group">

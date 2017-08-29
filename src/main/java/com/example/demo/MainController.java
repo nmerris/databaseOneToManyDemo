@@ -209,4 +209,10 @@ public class MainController {
         return "viewdirectordetails";
     }
 
+
+    @GetMapping("/search")
+    public String search() {
+        return "search";
+    }
+
 }
