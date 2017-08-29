@@ -83,22 +83,24 @@
                         <thead>
                         <tr>
                             <th>Name</th>
-                            <!--<th>Famous for Genre</th>-->
-                            <th>Movies</th>
+                            <th>Famous for Genre</th>
+                            <!--<th>Movies</th>-->
                         </tr>
                         </thead>
                         <tbody>
                             <th:block th:each="item:${directors}">
                                 <tr>
-                                    <td><p th:text="${item.name}"></p></td>
-                                    <!--<td><p th:text="${item.genre}"></p></td>-->
-                                    <td>
-                                        <ul>
-                                            <th:block th:each="movie : ${item.movies}">
-                                                <li th:inline="text">[[${movie.title}]]</li>
-                                            </th:block>
-                                        </ul>
-                                    </td>
+                                    <!--<td><p th:text="${item.name}"></p></td>-->
+                                    <td><a th:href="@{|/viewdirectordetails/${item.id}|}" th:text="${item.name}"></a></td>
+
+                                    <td><p th:text="${item.genre}"></p></td>
+                                    <!--<td>-->
+                                        <!--<ul>-->
+                                            <!--<th:block th:each="movie : ${item.movies}">-->
+                                                <!--<li th:inline="text">[[${movie.title}]]</li>-->
+                                            <!--</th:block>-->
+                                        <!--</ul>-->
+                                    <!--</td>-->
 
                                 </tr>
                             </th:block>
@@ -122,7 +124,7 @@
                         <tbody>
                         <th:block th:each="item:${movies}">
                             <tr>
-                                <td><p th:text="${item.title}"></p></td>
+                                <!--<td><p th:text="${item.title}"></p></td>-->
                                 <td><a th:href="@{|/viewmoviedetails/${item.id}|}" th:text="${item.title}"></a></td>
 
                                 <!--<td><p th:text="${item.year}"></p></td>-->

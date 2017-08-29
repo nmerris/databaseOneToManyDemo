@@ -4,9 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.HashSet;
@@ -191,5 +189,24 @@ public class MainController {
         return "addmovieconfirmation";
     }
 
+
+    @GetMapping("/viewmoviedetails/{id}")
+    public String viewMovieDetails(@PathVariable("id") long id, Model model) {
+
+
+        model.addAttribute("movie", movieRepository.findMovieByIdIs(id));
+
+        return "viewmoviedetails";
+    }
+
+
+    @GetMapping("/viewdirectordetails/{id}")
+    public String viewDirectorDetails(@PathVariable("id") long id, Model model) {
+
+
+        model.addAttribute("director", directorRepository.findDirectorByIdIs(id));
+
+        return "viewdirectordetails";
+    }
 
 }

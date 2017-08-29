@@ -12,15 +12,21 @@
             <div class="panel-body">
 
                 <div class="panel panel-primary">
-                    <div class="panel-heading"><h4><b>Movie Details</b></h4></div>
+                    <div class="panel-heading"><h4><b>Director Details</b></h4></div>
                     <ul class="list-group">
-                        <li class="list-group-item" th:text="${'Title: ' + movie.title}"></li>
-                        <li class="list-group-item" th:text="${'Year: ' + movie.year}"></li>
-                        <li class="list-group-item" th:text="${'Description: ' + movie.description}"></li>
-                        <li class="list-group-item" th:text="${'Director: ' + movie.director.name}"></li>
+                        <li class="list-group-item" th:text="${'Name: ' + director.name}"></li>
+                        <li class="list-group-item" th:text="${'Famous For Genre: ' + director.genre}"></li>
+
+                        <h3>Movies</h3>
+                        <ul>
+                            <th:block th:each="movie : ${director.movies}">
+                                <li th:inline="text">[[${movie.title}]]</li>
+                            </th:block>
+                        </ul>
+
                     </ul>
                 </div>
-                
+
             </div>
         </div>
     </div>
