@@ -115,13 +115,14 @@ public class MainController {
         // !!! NOTE: above is wrong, this is not something that should be expected in this setup.. a MOVIE that is added
         // BEFORE it's director has been added will become an ORPHAN, and so it will not ever have a value in it's JOIN column,
         // this is because a movie depends on a director, not the other way around
-//        Iterable<Movie> matchingMovies = movieRepository.findAllByDirectorFormInputIs(director.getName());
-//        for (Movie m : matchingMovies) {
-//
-//            m.setDirector(director);
-//
-//            movieRepository.save(m);
-//        }
+        Iterable<Movie> matchingMovies = movieRepository.findAllByDirectorFormInputIs(director.getName());
+        for (Movie m : matchingMovies) {
+
+            m.setDirector(director);
+
+            // this totally works!
+            movieRepository.save(m);
+        }
 
 
         return "adddirectorconfirmation";
@@ -147,34 +148,10 @@ public class MainController {
 
         // returns null if director is not already in the db, which is ok... maybe? it doesn't crash at least
         // if a movie is persisted with a NULL director, we say it is 'orphaned'
-        // really, need to display an errror message to user saying that the movie they are adding does not have a recognized
-        // director, so either prompt them to add one, or tell them the director will be shown as unknown\
         Director d = directorRepository.findDirectorByNameIs(movie.getDirectorFormInput());
 
-        if(d == null) {
-            System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! user tried to enter a movie with an UNKNOWN director !!!!!!!!!!!!!!!!!");
-
-//            model.addAttribute("unknownDirectorMsg", "")
-//
-//            // pass the same movie back to the model so user can try again with a movie with a known director, hopefully
-//            model.addAttribute("newMovie", movie);
-//            // add a new Director back to the model, because the user must have clicked on Submit for a new movie to get here
-//            model.addAttribute("newDirector", new Director());
-//
-//            // index has lists of everything, so they must be added every time index is returned
-//            model.addAttribute("directors", directorRepository.findAll());
-//            model.addAttribute("movies", movieRepository.findAll());
-
-            // user tried to enter a movie with a director that does not currently exist in the Director table
-            return "unknowndirector";
-        }
-        else {
-            System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! user entered a movie with a KNOWN director !!!!!!!!!!!!!!!!!");
-
-            // now persist the movie, since it now has a Director associated with it
-            movie.setDirector(d);
-        }
-
+        // save it now, with or without a director
+        movie.setDirector(d);
 
         // save the new movie to the db, because there were no validation errors, and the director was known
         movieRepository.save(movie);
