@@ -12,4 +12,7 @@ public interface MovieRepository extends CrudRepository<Movie, Long> {
 
     Movie findMovieByIdIs(long id);
 
+    // it would be nice to search by partial string here, and display a list of movies user can select from, also ignoring case
+    Movie findMovieByTitleIs(String title);
+
 }

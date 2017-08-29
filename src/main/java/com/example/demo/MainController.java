@@ -32,15 +32,6 @@ public class MainController {
         model.addAttribute("movies", movieRepository.findAll());
 
 
-
-
-
-
-
-
-
-
-
         //        Set<Movie> movies = new HashSet<Movie>();
 //
 //        director.setName("Rob Reiner");
@@ -210,9 +201,43 @@ public class MainController {
     }
 
 
+    // directorRequestParam coming from index as normal old URL embedded param
+    // movieSearchObject coming from index as thymleaf 'request param'.. should not show in URL, but still can grab like req param
+    // it works both ways, but it's not hidden when using th:name, so not sure what the point is right now....
     @GetMapping("/search")
-    public String search() {
-        return "search";
+    public String search(@RequestParam("by") String repo,
+                         @RequestParam(value = "directorRequestParam", required = false) String directorSearchString,
+                         @RequestParam(value = "movieSearchObject", required = false) String movieSearchString,
+                         Model model) {
+
+        switch (repo) {
+            case "director" :
+                Director d = directorRepository.findDirectorByNameIs(directorSearchString);
+                if(d == null) {
+                    // no hits in the repo, so show an appropriate msg
+                    System.out.println("!!!!!!!!!!!!!!!!!!!!! nothing found in director repo");
+                }
+                else {
+                    model.addAttribute(d);
+                    return "viewdirectordetails";
+                }
+                break;
+
+            case "movie" :
+                Movie m = movieRepository.findMovieByTitleIs(movieSearchString);
+                if (m == null) {
+                    System.out.println("!!!!!!!!!!!!!!!!!!!!! nothing found in movie repo");
+                }
+                else {
+                    model.addAttribute(m);
+                    return "viewmoviedetails";
+                }
+
+        }
+
+
+        // needed to compile, better to have a meaninful error message page here....
+        return "redirect:/";
     }
 
 }
