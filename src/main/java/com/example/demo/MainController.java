@@ -75,6 +75,7 @@ public class MainController {
         }
 
 
+
         return "adddirectorconfirmation";
     }
 
@@ -104,7 +105,14 @@ public class MainController {
 //        movie.setDirector(d);
 
         // save the new movie to the db, because there were no validation errors, and the director was known
+
+        movie.setDirector(directorRepository.findDirectorByIdIs(movie.getDirector().getId()));
         movieRepository.save(movie);
+
+
+        model.addAttribute("newMovie", movie);
+//        model.addAttribute("newMovie", movieRepository.findMovieByIdIs(movie.getId()));
+
 
 
         return "addmovieconfirmation";

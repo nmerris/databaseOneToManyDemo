@@ -12,6 +12,11 @@
             <div class="panel-body">
                 <div class="text-center feedback">
                     <h2>Movie was added!</h2>
+
+                    <h3 th:text="'newMovie.title just added: ' + ${newMovie.title}"></h3>
+                    <h3 th:text="'newMovie.director.name just added: ' + ${newMovie.director.name}"></h3>
+                    <!--<h3 th:text="'newMovie.name director just added: ' + ${newMovie.director.name}"></h3>-->
+
                 </div>
             </div>
         </div>
